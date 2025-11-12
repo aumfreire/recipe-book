@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title><%= title || 'Delicious' %></title>
+    <link rel="icon" href="/img/core-img/favicon.ico" />
+
+    <!-- Core Stylesheets -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <%- typeof head !== 'undefined' ? head : '' %>
+  </head>
+
+  <body>
+    <!-- Preloader and Search (shared) -->
+    <div id="preloader">
+      <i class="circle-preloader"></i>
+      <img src="/img/core-img/salad.png" alt="" />
+    </div>
+
+    <div class="search-wrapper">
+      <div class="close-btn">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <form action="#" method="post">
+              <input
+                type="search"
+                name="search"
+                placeholder="Type any keywords..."
+              />
+              <button type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header (from template) -->
+    <header class="header-area">
+      <!-- Top Header Area -->
+      <div class="top-header-area">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center justify-content-between">
+            <div class="col-12 col-sm-6">
+              <div class="breaking-news">
+                <div id="breakingNewsTicker" class="ticker">
+                  <ul>
+                    <li><a href="#">Hello World!</a></li>
+                    <li><a href="#">Welcome to Colorlib Family.</a></li>
+                    <li><a href="#">Hello Delicious!</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <div class="top-social-info text-right">
+                <a href="#"
+                  ><i class="fa fa-pinterest" aria-hidden="true"></i
+                ></a>
+                <a href="#"
+                  ><i class="fa fa-facebook" aria-hidden="true"></i
+                ></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="#"
+                  ><i class="fa fa-dribbble" aria-hidden="true"></i
+                ></a>
+                <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                <a href="#"
+                  ><i class="fa fa-linkedin" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navbar Area -->
+      <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+          <div class="container">
+            <nav
+              class="classy-navbar justify-content-between"
+              id="deliciousNav"
+            >
+              <a class="nav-brand" href="/"
+                ><img src="/img/core-img/logo.png" alt=""
+              /></a>
+              <div class="classy-navbar-toggler">
+                <span class="navbarToggler"
+                  ><span></span><span></span><span></span
+                ></span>
+              </div>
+              <div class="classy-menu">
+                <div class="classycloseIcon">
+                  <div class="cross-wrap">
+                    <span class="top"></span><span class="bottom"></span>
+                  </div>
+                </div>
+                <div class="classynav">
+                  <ul>
+                    <li
+                      class="<%= (typeof active !== 'undefined' && active === 'home') ? 'active' : '' %>"
+                    >
+                      <a href="/">Home</a>
+                    </li>
+                    <li>
+                      <a href="#">Pages</a>
+                      <ul class="dropdown">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/blog-post">Blog Post</a></li>
+                        <li><a href="/receipe-post">Receipe Post</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/elements">Elements</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="/receipe-post">Receipies</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                  </ul>
+                  <div class="search-btn">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page body -->
+    <main><%- body %></main>
+
+    <!-- Footer (from template) -->
+    <footer class="footer-area">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div
+            class="col-12 h-100 d-flex flex-wrap align-items-center justify-content-between"
+          >
+            <div class="footer-social-info text-right">
+              <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
+            <div class="footer-logo">
+              <a href="/"><img src="/img/core-img/logo.png" alt="" /></a>
+            </div>
+            <p>
+              Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              All rights reserved | Template by Colorlib
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Files -->
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/plugins/plugins.js"></script>
+    <script src="/js/active.js"></script>
+    <%- typeof scripts !== 'undefined' ? scripts : '' %>
+  </body>
+</html>
