@@ -1,207 +1,201 @@
-🧩 Node + Express + EJS Project Setup Guide
+# Node + Express + EJS Project Setup Guide
 
-Welcome to the project!
-This guide explains how to set up the workspace, install dependencies, and follow the Git workflow for collaboration.
+Welcome — paste this as your README.md.
 
-🚀 Project Setup
-1. Create a new workspace
+---
 
+## 🚀 Project Setup
+
+### 1. Create a new workspace
 In VS Code:
-
-File → Add Folder to Workspace… → choose or create your project folder.
+- File → Add Folder to Workspace… → choose or create your project folder
 
 Or via terminal:
-
+```bash
 mkdir my-project
 cd my-project
+```
 
-2. Initialize the project
+### 2. Initialize the project
+```bash
 npm init -y
+```
 
+### 3. Create core files & folders
+```bash
+touch index.js
+mkdir views
+touch .env
+```
 
-This creates a package.json that lists your dependencies and project info.
-You can remove -y to fill details manually.
-
-3. Create core files & folders
-index.js          # Main server file
-views/            # EJS templates
-.env              # Environment variables
-
-4. Install dependencies
-Command	Description
-npm install express	Web framework for routing and handling HTTP requests.
-npm install knex	SQL query builder for databases.
-npm install ejs	Template engine for dynamic HTML.
-npm install pg	PostgreSQL client for Node.js.
-npm install express-session	Session management middleware.
-npm install dotenv	Loads .env variables into process.env.
-
-💡 npm v5+ saves dependencies automatically — no need for --save.
-
-5. Optional: Auto-reloading with nodemon
+### 4. Install dependencies
+```bash
+npm install express knex ejs pg express-session dotenv multer@^1.4.5-lts.2
+```
+Optional dev tool:
+```bash
 npm install --save-dev nodemon
+```
 
-
-Add to your package.json:
-
+Add scripts to package.json:
+```json
 "scripts": {
   "start": "node index.js",
   "dev": "nodemon index.js"
 }
+```
 
-6. Run your app
+### 5. Run the app
+```bash
 npm run dev
+# then open http://localhost:3000
+```
 
+---
 
-Then visit: http://localhost:3000
+## 🔑 Environment variables
+Create `.env` (do NOT commit `.env`):
+```
+PORT=3000
+SESSION_SECRET=change-me
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASSWORD=admin
+DB_NAME=foodisus
+DB_PORT=5432
+```
 
-🧠 Summary
-
-EJS → renders HTML with embedded JavaScript (<%= %>).
-
-index.js → main server entry point.
-
-.env → configuration (e.g. PORT=3000).
-
-Knex + pg → connect to PostgreSQL.
-
-express-session → handle login sessions.
-
-🐙 GitHub Setup
-1. Create the repository
-
-On GitHub:
-
-New → Repository → name it (e.g. recipe-book) → keep it empty (no README or .gitignore).
-
-2. Initialize locally
-git init
-git add .
-git commit -m "chore: initial project scaffold"
-git branch -M main
-git remote add origin https://github.com/<you>/<repo>.git
-git push -u origin main
-
-3. Protect the main branch
-
-Settings → Branches → Add rule:
-
-✅ Require pull request before merging
-
-✅ Require 1+ review
-
-⚙️ Optionally require status checks
-
-4. Create a long-lived dev branch
-git checkout -b dev
-git push -u origin dev
-
-
-All new work branches off dev.
-
-5. Add collaborators
-
-Repository → Settings → Collaborators → Add teammates.
-
-6. Hygiene
-
-Add .gitignore:
-
-node_modules/
-.env
-
-
-Create .env.example:
-
+Create `.env.example`:
+```
 PORT=3000
 SESSION_SECRET=change-me
 DATABASE_URL=postgres://user:pass@host:5432/db
+```
 
+Add `.env` to `.gitignore`:
+```
+node_modules/
+.env
+```
 
-Commit and push:
+---
 
-git add .env.example
-git commit -m "chore: add env example"
-git push
+## 🧾 Key packages & purpose
+- **express** — web framework and routing  
+- **ejs** — view templates  
+- **knex** — SQL query builder  
+- **pg** — PostgreSQL client  
+- **express-session** — session management  
+- **dotenv** — load .env into process.env  
+- **multer** — handle file uploads  
+- **nodemon** — optional auto-reload in dev
 
-🧭 Daily Workflow
-A) Sync your local dev
-git checkout dev
-git pull origin dev
+---
 
-B) Create a feature branch
-git checkout -b feature/<short-desc>
+# 🐙 GitHub setup & workflow
+---
 
-
-Examples:
-
-feature/login-page
-
-fix/database-connection
-
-chore/update-readme
-
-C) Work and commit
-git add .
-git commit -m "feat(login): add login route and view"
-
-D) Rebase with latest dev
-git fetch origin
-git rebase origin/dev
-# if conflicts → fix → git add <files> → git rebase --continue
-
-E) Push & open a PR
-git push -u origin feature/login-page
-
-
-On GitHub:
-
-Base: dev
-
-Compare: feature/login-page
-Request a review → Address comments.
-
-F) Merge
-
-Once approved: Squash & Merge into dev, then delete the feature branch.
-
-G) Promote to main
-
-When ready for release:
-
-Open PR from dev → main
-
-Optionally tag a version (e.g., v0.1.0)
-
-🧑‍🤝‍🧑 New Teammate Setup
+## 👥 New teammate setup
+```bash
 git clone https://github.com/<you>/<repo>.git
 cd <repo>
 git checkout dev
 npm install
 cp .env.example .env
-# Fill local values
+# fill .env values
 npm run dev
+```
 
-⚡ Useful Git Commands
-Purpose	Command
-Show branches	git branch / git branch -r
-Switch safely	git switch <branch>
-Undo last commit	git reset --soft HEAD~1
-Abort merge/rebase	git merge --abort / git rebase --abort
-Commit Style
-feat(auth): add session-based login
-fix(routes): correct 404 order
-chore: add nodemon and dev script
-docs(readme): setup steps
+---
 
-✅ Final Tips
+## ⚡ Daily Git cheat sheet (common commands)
+- Check repo state:
+```bash
+git status
+git remote -v
+```
+- Work on a branch:
+```bash
+git fetch origin
+git checkout -b feature/short-desc    # or: git switch -c feature/short-desc
+```
+- Stage & commit:
+```bash
+git add .                              # stage all changes
+git add path/to/file.js                # stage specific file
+git commit -m "feat(scope): short msg" # commit staged changes
+```
+- Amend last commit (before push):
+```bash
+git commit --amend --no-edit           # change the commit content without editing message
+git commit --amend -m "new message"    # amend message too
+```
+- Update local branch with remote `dev` (recommended workflow):
+```bash
+git checkout dev
+git pull --rebase origin dev           # keep a linear history
+# or on feature branch:
+git fetch origin
+git rebase origin/dev
+# resolve conflicts, then:
+git add <files>
+git rebase --continue
+```
+- Push changes:
+```bash
+git push -u origin feature/short-desc  # first push sets upstream
+git push                               # subsequent pushes
+```
+- Merging & PRs:
+```bash
+# locally test merge (not required if using PR on GitHub)
+git checkout dev
+git merge feature/short-desc
+```
+- Delete branches:
+```bash
+git branch -d feature/short-desc       # delete local branch (will refuse if not merged)
+git push origin --delete feature/short-desc  # delete remote branch
+```
+- Stash work:
+```bash
+git stash          # save uncommitted changes
+git stash pop      # restore stash
+```
+- Inspect history:
+```bash
+git log --oneline --graph --decorate --all
+```
 
-Keep PRs small and focused.
+---
 
-Always pull latest dev before starting work.
+## ⚙️ Other useful commands
+- Show remote branches:
+```bash
+git branch -r
+```
+- Recover from mistakes:
+```bash
+git reset --soft HEAD~1    # undo last commit but keep changes staged
+git reset --hard <commit>  # WARNING: discards local changes
+git merge --abort
+git rebase --abort
+```
 
-Never push directly to main.
+---
 
-Use .env.example to share configs safely.
+## 🧰 Commit message style examples
+- feat(auth): add session-based login  
+- fix(routes): correct 404 order  
+- chore: add nodemon and dev script  
+- docs(readme): setup steps
+
+---
+
+## ✅ Final tips
+- Keep PRs small and focused.  
+- Always pull latest `dev` before starting work.  
+- **NEVER** push directly to `main`.  
+- Use `.env.example` to share config safely.
 
 Happy coding! 🚀
