@@ -1,201 +1,152 @@
-# Node + Express + EJS Project Setup Guide
 
-Welcome — paste this as your README.md.
+# 💻 Project Setup & Workflow Guide
 
----
-
-## 🚀 Project Setup
-
-### 1. Create a new workspace
-In VS Code:
-- File → Add Folder to Workspace… → choose or create your project folder
-
-Or via terminal:
-```bash
-mkdir my-project
-cd my-project
-```
-
-### 2. Initialize the project
-```bash
-npm init -y
-```
-
-### 3. Create core files & folders
-```bash
-touch index.js
-mkdir views
-touch .env
-```
-
-### 4. Install dependencies
-```bash
-npm install express knex ejs pg express-session dotenv multer@^1.4.5-lts.2
-```
-Optional dev tool:
-```bash
-npm install --save-dev nodemon
-```
-
-Add scripts to package.json:
-```json
-"scripts": {
-  "start": "node index.js",
-  "dev": "nodemon index.js"
-}
-```
-
-### 5. Run the app
-```bash
-npm run dev
-# then open http://localhost:3000
-```
+This guide contains the essential steps to get the project running and the necessary Git commands for daily collaboration.
 
 ---
 
-## 🔑 Environment variables
-Create `.env` (do NOT commit `.env`):
-```
-PORT=3000
-SESSION_SECRET=change-me
-DB_HOST=localhost
-DB_USER=postgres
-DB_PASSWORD=admin
-DB_NAME=foodisus
-DB_PORT=5432
-```
+## 🚀 Getting Started
 
-Create `.env.example`:
-```
-PORT=3000
-SESSION_SECRET=change-me
-DATABASE_URL=postgres://user:pass@host:5432/db
-```
+Follow these steps **once** to set up your local environment and get the project running.
 
-Add `.env` to `.gitignore`:
-```
-node_modules/
-.env
-```
+### 1. Clone the Repository
 
----
+Clone the project from GitHub and navigate into the directory.
 
-## 🧾 Key packages & purpose
-- **express** — web framework and routing  
-- **ejs** — view templates  
-- **knex** — SQL query builder  
-- **pg** — PostgreSQL client  
-- **express-session** — session management  
-- **dotenv** — load .env into process.env  
-- **multer** — handle file uploads  
-- **nodemon** — optional auto-reload in dev
-
----
-
-# 🐙 GitHub setup & workflow
----
-
-## 👥 New teammate setup
 ```bash
-git clone https://github.com/<you>/<repo>.git
-cd <repo>
-git checkout dev
+git clone [https://github.com/](https://github.com/)<you>/<repo-name>.git
+cd <repo-name>
+````
+
+### 2. Install Dependencies
+
+Install all necessary Node.js packages.
+
+``` bash
 npm install
-cp .env.example .env
-# fill .env values
-npm run dev
 ```
 
+| Command                           | Description                                                                                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `npm install express`             | **Express** — popular web framework that simplifies routing, requests, and responses.                                                                  |
+| `npm install knex`                | **Knex.js** — SQL query builder to interact with databases in JavaScript.                                                                              |
+| `npm install ejs`                 | **EJS (Embedded JavaScript Templates)** — templating engine for rendering dynamic HTML pages.                                                          |
+| `npm install pg`                  | **pg** — PostgreSQL client that allows your Node app to connect to a Postgres database.                                                                |
+| `npm install express-session`     | **express-session** — middleware for managing user sessions (e.g., login persistence).                                                                 |
+| `npm install dotenv`              | **dotenv** — loads variables from your `.env` file into `process.env` for secure configuration.                                                        |
+| `npm install pg`                  | **pg** - lets your Node.js app connect to and interact with a PostgreSQL database.                                                                     |
+| `npm install multer@^1.4.5-lts.2` | **multer** -  is a middleware used with **Express** to handle **file uploads**—it processes incoming `multipart/form-data` forms (like image uploads). |
+### 3. Configure Environment Variables
+
+Create your local configuration file by copying the example, and then **fill in the required values** (especially for the database). **Do NOT commit `.env`!**
+
+``` Bash
+cp .env.example .env
+```
+
+### 4. Run the Project
+
+Use the development script which includes file-watching for automatic restarts.
+
+``` Bash
+npm run dev
+# The application should start, typically accessible at http://localhost:3000
+```
+or
+
+``` Bash
+node index.js
+# Also accessible at http://localhost:3000
+```
 ---
 
-## ⚡ Daily Git cheat sheet (common commands)
-- Check repo state:
-```bash
-git status
-git remote -v
-```
-- Work on a branch:
-```bash
+## 🔑 Daily Git Workflow
+
+This is a cheat sheet for common daily tasks. We primarily work on **feature branches** based off of `dev`.
+
+### 1. Start a New Task
+
+Always fetch the latest changes and create a new, well-named branch.
+
+``` Bash
 git fetch origin
-git checkout -b feature/short-desc    # or: git switch -c feature/short-desc
-```
-- Stage & commit:
-```bash
-git add .                              # stage all changes
-git add path/to/file.js                # stage specific file
-git commit -m "feat(scope): short msg" # commit staged changes
-```
-- Amend last commit (before push):
-```bash
-git commit --amend --no-edit           # change the commit content without editing message
-git commit --amend -m "new message"    # amend message too
-```
-- Update local branch with remote `dev` (recommended workflow):
-```bash
 git checkout dev
-git pull --rebase origin dev           # keep a linear history
-# or on feature branch:
+git pull origin dev
+
+# Create and switch to a new feature branch
+git checkout -b feature/short-description 
+```
+
+### 2. Commit Your Work
+
+Stage your changes and commit them with a descriptive message.
+
+``` Bash
+# Stage all modified/new files
+git add .
+
+# Commit changes (use 'feat', 'fix', 'chore', or 'docs' prefix)
+git commit -m "feat(scope): short message describing the changes"
+```
+
+### 3. Update with Latest `dev` (Recommended)
+
+To keep your history clean, regularly **rebase** your branch onto the latest `dev`.
+
+``` bash
+# While on your feature branch:
 git fetch origin
 git rebase origin/dev
-# resolve conflicts, then:
-git add <files>
-git rebase --continue
 ```
-- Push changes:
-```bash
-git push -u origin feature/short-desc  # first push sets upstream
-git push                               # subsequent pushes
+
+> **Note:** If conflicts occur, resolve them, use `git add <files>`, and then run `git rebase --continue`.
+
+### 4. Push and Create a Pull Request (PR)
+
+Push your branch to the remote repository.
+
+``` bash
+# First time pushing this branch (sets upstream)
+git push -u origin feature/short-description
+
+# Subsequent pushes
+git push
 ```
-- Merging & PRs:
-```bash
-# locally test merge (not required if using PR on GitHub)
-git checkout dev
-git merge feature/short-desc
+
+> After pushing, visit GitHub to create a Pull Request from your branch into `dev`.
+
+---
+
+## 🗑️ Cleanup Commands
+
+### Delete Local and Remote Branches
+
+Once your feature branch is merged into `dev`, you can delete it.
+
+``` bash
+# Delete local branch (will only work if merged)
+git branch -d feature/short-description 
+
+# Delete remote branch
+git push origin --delete feature/short-description 
 ```
-- Delete branches:
-```bash
-git branch -d feature/short-desc       # delete local branch (will refuse if not merged)
-git push origin --delete feature/short-desc  # delete remote branch
-```
-- Stash work:
-```bash
-git stash          # save uncommitted changes
-git stash pop      # restore stash
-```
-- Inspect history:
-```bash
-git log --oneline --graph --decorate --all
+
+### Stash Changes
+
+Temporarily save uncommitted changes when you need to switch branches quickly.
+
+``` bash
+git stash       # Save current uncommitted changes
+git stash pop   # Restore the last saved stash
 ```
 
 ---
 
-## ⚙️ Other useful commands
-- Show remote branches:
-```bash
-git branch -r
-```
-- Recover from mistakes:
-```bash
-git reset --soft HEAD~1    # undo last commit but keep changes staged
-git reset --hard <commit>  # WARNING: discards local changes
-git merge --abort
-git rebase --abort
-```
+**Remember:**
 
----
-
-## 🧰 Commit message style examples
-- feat(auth): add session-based login  
-- fix(routes): correct 404 order  
-- chore: add nodemon and dev script  
-- docs(readme): setup steps
-
----
-
-## ✅ Final tips
-- Keep PRs small and focused.  
-- Always pull latest `dev` before starting work.  
-- **NEVER** push directly to `main`.  
-- Use `.env.example` to share config safely.
+- **NEVER** commit secrets or push directly to `main` or `dev`.
+    
+- Keep your PRs focused and small.
+    
 
 Happy coding! 🚀
